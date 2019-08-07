@@ -67,8 +67,6 @@ settings:
       -
         - Dense
         - dense
-    show_if:
-      value_type: ranks
 
   - Chart sizing
   - property: height_mode
@@ -324,13 +322,29 @@ settings:
   - property: rank_font_size
     name: Rank font size
     type: number
+    width: half
   - property: label_font_size
     name: Label font size
     type: number
+    width: half
+  - property: label_color_mode
+    name: Label color
+    type: string
+    style: buttons
+    width: half
+    choices: 
+      - [ Auto, auto]
+      - [ Fixed, fixed]
+  - property: label_color
+    name: Color
+    type: color
+    width: quarter
+    show_if: 
+      label_color_mode: fixed
   - property: rank_outside_picture
     name: Rank position
     type: boolean
-    width: half
+    width: full
     style: buttons
     choices:
       - - Inside
@@ -340,7 +354,7 @@ settings:
   - property: hide_labels
     name: Show label
     type: boolean
-    width: half
+    width: full
     style: buttons
     choices:
       - - Always

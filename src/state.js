@@ -20,6 +20,8 @@ var state = {
 	horse_images: true,
 	hide_labels: false,
 	label_font_size: 12,
+	label_color_mode: "auto",
+	label_color: "#808080",
 	rank_font_size: 14,
 	rank_outside_picture: true,
 

@@ -1,3 +1,6 @@
+# 6.2.0
+* Add fixed label color option
+
 # 6.1.0
 * Enable dynamic y axis when filtering in non-zoomed mode
 

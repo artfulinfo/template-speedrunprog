@@ -225,7 +225,7 @@ function updateLabels(duration) {
 	labels_update = labels.merge(labels_enter);
 	labels_update
 		.attr("fill", function(d) {
-			return color.find(d.name);
+			return state.label_color_mode === "auto" ? color.find(d.name) : state.label_color;
 		})
 		.classed("tied", false)
 		.each(function(d) {
@@ -272,6 +272,7 @@ function updateLabels(duration) {
 		});
 	labels_update.select(".name-bg .name-label")
 		.text(function(d) { return d.name; });
+
 	labels_update.select(".name-fg .name-label")
 		.text(function(d) { return d.name; });
 
