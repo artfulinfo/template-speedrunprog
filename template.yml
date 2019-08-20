@@ -363,7 +363,9 @@ settings:
         - true
   - property: label_format
     import: "@flourish/number-formatter"
-
+    overrides: 
+      - property: prefix
+        new_section: Number styling (for scores only)
   - Y axis
   - property: y_axis_label_colors
     name: Label color

@@ -103,7 +103,7 @@ function displayValue(d, direction) {
 	if (direction == "ahead") line_item = d.line[Math.floor(current_position + 1)];
 	else if (direction == "behind") line_item = d.line[Math.floor(current_position)];
 	var val = line_item ? line_item.value || d.line[lastValidStage(d)].value : d.line[lastValidStage(d)].value;
-	return val == "" ? "" : labelFormat(val);
+	return val == "" ? "" : (state.value_type === "ranks" ? val : labelFormat(val));
 }
 
 function lastValidStage(d) {
