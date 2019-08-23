@@ -5,7 +5,6 @@ import * as shape from "d3-shape";
 import initFormatter from "@flourish/number-formatter";
 
 import state from "./state";
-import data from "./data";
 import update from "./update";
 
 import { getProcessedData, localization } from "./process_data";
@@ -142,7 +141,7 @@ function updateChecks() {
 	var check_width = state.zoom_enabled ? x(Math.max(current_position - state.zoom_steps_to_show + 1, 1)) : x(1);
 	var check_margin = 60;
 	var check_inner_margin = check_margin - 20;
-	var checks = g_checks.selectAll(".check").data(data.horserace.column_names.stages);
+	var checks = g_checks.selectAll(".check").data(state.bindings.stages);
 
 	var checks_enter = checks.enter().append("g").attr("class", "check");
 	checks_enter.append("rect").attr("class", "check-rect");
@@ -307,7 +306,7 @@ function updateHorses(duration) {
 	updateLines(duration);
 	updateStartCircles(duration);
 	updateLabels(duration);
-	updateChecks(data);
+	updateChecks();
 }
 
 function horseOpacity(d) {
@@ -395,7 +394,7 @@ function clickHorse(d) {
 }
 
 function getTargetPosition() {
-	var num_timeslices = data.horserace.column_names.stages.length;
+	var num_timeslices = state.bindings.stages.length;
 	if (state.target_position == null) return num_timeslices - 1;
 	else return Math.max(0, Math.min(num_timeslices - 1, state.target_position - 1));
 }
@@ -431,7 +430,7 @@ function updateGraphic(duration) {
 	updateSizesAndScales(current_position, horses.max_rank, duration);
 	updateLineStyle();
 	updateColors();
-	var axis_width = state.zoom_enabled ? Math.min(x(data.horserace.column_names.stages.length - 1), w) : w;
+	var axis_width = state.zoom_enabled ? Math.min(x(state.bindings.stages.length - 1), w) : w;
 	updateAxes(x, y, axis_width, duration);
 	updateHorses(duration);
 

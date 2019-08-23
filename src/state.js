@@ -1,4 +1,10 @@
 var state = {
+	bindings: {
+		name: "name",
+		pic: "pic",
+		stages: ["Election 2013", "Dec 2016", "Jan 2017", "Feb 2017", "Mar 2017", "Apr 2017", "May 2017", "Jun 2017", "Jul 2017", "Aug 2017"],
+		filter: ""
+	},
 	height_mode: "auto",
 	margin_top: 5,
 	margin_right: 5,

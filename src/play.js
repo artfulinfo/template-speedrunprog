@@ -2,7 +2,6 @@ import { select, selectAll } from "d3-selection";
 import { ascending } from "d3-array";
 
 import state from "./state";
-import data from "./data";
 
 import { x, y, w, updateXDomain, updateYDomain, end_circle_r, end_circle_stroke } from "./size";
 import { updateAxes } from "./axis";
@@ -11,7 +10,7 @@ import { getTargetPosition, updateChecks, updateLines, updateStartCircles, trans
 var current_position = 0;
 
 function updateCurrentPosition(from_start) {
-	var num_timeslices = data.horserace.column_names.stages.length;
+	var num_timeslices = state.bindings.stages.length;
 	if (current_position > num_timeslices - 1) current_position = num_timeslices - 1;
 	if (from_start) current_position = 1;
 }
@@ -52,7 +51,7 @@ function tieBreak() {
 function replay() {
 	state.target_position = 0;
 	current_position = 0;
-	state.target_position = data.horserace.column_names.stages.length;
+	state.target_position = state.bindings.stages.length;
 	play();
 }
 
@@ -99,7 +98,7 @@ function frame(t) {
 		updateChecks();
 		updateLines(0);
 		updateStartCircles(0);
-		var axis_width = Math.min(x(data.horserace.column_names.stages.length - 1), w);
+		var axis_width = Math.min(x(state.bindings.stages.length - 1), w);
 		updateAxes(x, y, axis_width, 0);
 	}
 

@@ -1,17 +1,16 @@
 import { select, selectAll } from "d3-selection";
 import { axisLeft, axisTop } from "d3-axis";
 import initFormatter from "@flourish/number-formatter";
-import { localization } from "./process_data";
+import { localization, data_new } from "./process_data";
 
 import { w, max_horse_height } from "./size";
 import state from "./state";
-import data from "./data";
 
 var getYAxisFormatter = initFormatter(state.y_axis_format);
 
 function updateXAxis(x) {
 	var xAxis = axisTop(x).tickFormat(function(d) {
-		return data.horserace.column_names.stages[d] || "";
+		return state.bindings.stages[d] || "";
 	});
 
 	var min_space = state.x_axis_rotate == "tilted" ? 30 : (state.x_axis_rotate == "vertical" ? state.x_axis_label_size : 80);
@@ -59,7 +58,7 @@ function updateYAxis(y, w, duration) {
 		})
 		.tickPadding(5);
 
-	if (state.value_type == "ranks") yAxis.ticks(Math.min(data.horserace.length, state.y_axis_max_rank || Infinity));
+	if (state.value_type == "ranks") yAxis.ticks(Math.min(data_new.length, state.y_axis_max_rank || Infinity));
 	select(".y.axis").transition().duration(duration).call(yAxis);
 
 	selectAll(".y.axis text")

@@ -1,10 +1,9 @@
 import { select } from "d3-selection";
 import { scaleLinear } from "d3-scale";
 import { min, max } from "d3-array";
-import { parser } from "./process_data";
+import { parser, data_new } from "./process_data";
 
 import state from "./state";
-import data from "./data";
 
 import { is_mobile, horses } from "./update_graphic";
 import { svg, plot, layout } from "./create_dom";
@@ -43,7 +42,7 @@ function updateSizesAndScales(current_position, max_rank, duration) {
 	var margin_top = max_horse_height/2 + label_sizes.x.height + state.margin_top;
 	var margin_left = Math.max(max_horse_height/2, 5) + state.margin_left + (state.value_type == "ranks" ? 0 : (state.y_axis_format.suffix.length + state.y_axis_format.prefix.length) * (state.y_axis_label_size * 0.5));
 
-	var num_of_horses = state.y_axis_max_rank != null && state.y_axis_max_rank != "" ? state.y_axis_max_rank : data.horserace.length;
+	var num_of_horses = state.y_axis_max_rank != null && state.y_axis_max_rank != "" ? state.y_axis_max_rank : data_new.length;
 	var gap_between = max_horse_height * 0.1;
 	var plot_height = (num_of_horses * max_horse_height) + (num_of_horses - 1) * gap_between;
 
@@ -78,7 +77,7 @@ function updateSizesAndScales(current_position, max_rank, duration) {
 }
 
 function updateXDomain(current_position) {
-	var num_stages = data.horserace.column_names.stages.length;
+	var num_stages = state.bindings.stages.length;
 	var min_domain = !state.zoom_enabled ? 0 : Math.max(0, current_position - state.zoom_steps_to_show);
 	var steps_to_show = Math.min(num_stages, state.zoom_steps_to_show);
 
@@ -104,18 +103,18 @@ function updateYDomain(current_position) {
 			y_min -= diff * padding; y_max += diff * padding;
 		}
 		else if (state.zoom_y_axis) {
-			y_min = min(data.horserace, function(d) {
+			y_min = min(data_new, function(d) {
 				if (state.filter !== null && state.filter != state.filter_all_label && state.filter != d.filter) return null;
 				else return min(d.stages, function(v) { return parser(v); });
 			});
-			y_max = max(data.horserace, function(d) {
+			y_max = max(data_new, function(d) {
 				if (state.filter !== null && state.filter != state.filter_all_label && state.filter != d.filter) return null;
 				else return max(d.stages, function(v) { return parser(v); });
 			});
 		}
 		else {
-			y_min = min(data.horserace, function(d) { return min(d.stages, function(v) { return parser(v); }); });
-			y_max = max(data.horserace, function(d) { return max(d.stages, function(v) { return parser(v); }); });
+			y_min = min(data_new, function(d) { return min(d.stages, function(v) { return parser(v); }); });
+			y_max = max(data_new, function(d) { return max(d.stages, function(v) { return parser(v); }); });
 		}
 		if (state.y_axis_min !== "" && state.y_axis_min !== null) y_min = state.y_axis_min;
 		if (state.y_axis_max !== "" && state.y_axis_max !== null) y_max = state.y_axis_max;
@@ -132,7 +131,7 @@ function getLabelSizes() {
 	};
 
 	// Get longest line label
-	data.horserace.forEach(function(d) {
+	data_new.forEach(function(d) {
 		if (d.name.length > label_sizes.line.size) {
 			label_sizes.line.text = d.name;
 			label_sizes.line.size = d.name.length;
@@ -144,7 +143,7 @@ function getLabelSizes() {
 	label_sizes.line.el.remove();
 
 	// Get longest x axis label
-	data.horserace.column_names.stages.forEach(function(name) {
+	state.bindings.stages.forEach(function(name) {
 		if (name.length > label_sizes.x.size) {
 			label_sizes.x.text = name;
 			label_sizes.x.size = name.length;

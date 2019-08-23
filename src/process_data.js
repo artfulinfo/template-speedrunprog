@@ -7,6 +7,7 @@ import state from "./state";
 var localization = initLocalization(state.localization);
 var parser;
 var max_rank;
+var data_new;
 
 function addCompetitionRanks(data) {
 	var prev_score = undefined, prev_rank = 0, ties = 0;
@@ -43,14 +44,30 @@ function getProcessedData() {
 	var timeslices = [];
 	max_rank = 0;
 
-	data.horserace.forEach(function(d, i) { d.unfiltered_index = i; });
+	var column_names = {};
+	data.horserace.column_names.columns.forEach(function(column_name, i) {
+		column_names[column_name] = i;
+	});
+
+	data_new = data.horserace.map(function(row) {
+		return {
+			name: row.columns[column_names[state.bindings.name]],
+			pic: row.columns[column_names[state.bindings.pic]],
+			stages: state.bindings.stages.map(function(stage) {
+				return row.columns[column_names[stage]];
+			}),
+			filter: row.columns[column_names[state.bindings.filter]]
+		};
+	});
+
+	data_new.forEach(function(d, i) { d.unfiltered_index = i; });
 
 	var filtered_horses;
-	if (state.filter === null || state.filter === state.filter_all_label) filtered_horses = data.horserace;
-	else filtered_horses = data.horserace.filter(function(d) { return d.filter === state.filter; });
+	if (state.filter === null || state.filter === state.filter_all_label) filtered_horses = data_new;
+	else filtered_horses = data_new.filter(function(d) { return d.filter === state.filter; });
 
 	var min_score = Infinity, max_score = -Infinity;
-	data.horserace.column_names.stages.forEach(function(stage, stage_index) {
+	state.bindings.stages.forEach(function(stage, stage_index) {
 		var timeslice = [];
 
 		// Pull out the names and raw scores
@@ -130,4 +147,4 @@ function getProcessedData() {
 	return horses;
 }
 
-export { getProcessedData, localization, parser };
+export { getProcessedData, localization, parser, data_new };
