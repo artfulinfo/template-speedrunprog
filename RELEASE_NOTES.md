@@ -1,4 +1,5 @@
-# 6.3.0
+# 7.0.0
+* Update @flourish/layout to v3 (breaking)
 * Tweak axis label rotation setting
 
 # 6.2.0
