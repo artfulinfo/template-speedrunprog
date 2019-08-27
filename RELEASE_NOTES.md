@@ -1,3 +1,6 @@
+# 6.3.0
+* Tweak axis label rotation setting
+
 # 6.2.0
 * Add fixed label color option
 

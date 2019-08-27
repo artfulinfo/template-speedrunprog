@@ -432,17 +432,20 @@ settings:
     type: number
     width: quarter
   - property: x_axis_rotate
-    name: Label rotation
+    name: Text angle
+    width: half
     type: string
-    style: buttons
-    width: full
     choices:
-      - - Tilted
-        - tilted
-      - - Horizontal
-        - horizontal
-      - - Vertical
-        - vertical
+      - - 0°
+        - '0'
+      - - 30°
+        - '30'
+      - - 45°
+        - '45'
+      - - 60°
+        - '60'
+      - - 90°
+        - '90'
 
   - Animation
   - property: stage_duration

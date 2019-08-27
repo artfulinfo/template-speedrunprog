@@ -153,11 +153,7 @@ function getLabelSizes() {
 	label_sizes.x.el = svg.append("text")
 		.text(label_sizes.x.text)
 		.style("font-size", state.x_axis_label_size + "px")
-		.attr("transform", function() {
-			if (state.x_axis_rotate == "tilted") return "rotate(-45)";
-			else if (state.x_axis_rotate == "vertical") return "rotate(-90)";
-			else return "rotate(0)";
-		});
+		.attr("transform", "rotate(" + -state.x_axis_rotate + ")");
 
 	label_sizes.x.height = label_sizes.x.el.node().getBoundingClientRect().height;
 	label_sizes.x.el.remove();

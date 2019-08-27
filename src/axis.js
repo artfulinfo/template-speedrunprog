@@ -14,7 +14,11 @@ function updateXAxis(x) {
 		return data.horserace.column_names.stages[d] || "";
 	});
 
-	var min_space = state.x_axis_rotate == "tilted" ? 30 : (state.x_axis_rotate == "vertical" ? state.x_axis_label_size : 80);
+	var rotate = -state.x_axis_rotate;
+	var min_space = state.x_axis_label_size * 4;
+	if (state.x_axis_rotate == "90") min_space = state.x_axis_label_size;
+	else if (state.x_axis_rotate == "0") min_space = state.x_axis_label_size * 6;
+
 	var max_ticks = Math.floor(w / min_space);
 	var plot_margin_top = max_horse_height / 2;
 
@@ -26,23 +30,19 @@ function updateXAxis(x) {
 
 	select(".x.axis").call(xAxis)
 		.selectAll(".tick text")
-		.style("text-anchor", state.x_axis_rotate == "horizontal" ? "middle" : "start")
+		.style("text-anchor", rotate == "0" ? "middle" : "start")
 		.attr("dx", function() {
-			if (state.x_axis_rotate == "tilted") return (plot_margin_top * 0.68) + 2;
-			else if (state.x_axis_rotate == "horizontal") return 0;
-			else if (state.x_axis_rotate == "vertical") return plot_margin_top;
+			if (state.x_axis_rotate == "0") return 0;
+			else if (state.x_axis_rotate == "90") return plot_margin_top;
+			else return (plot_margin_top * 0.68) + 2;
 		})
 		.attr("dy", function() {
-			if (state.x_axis_rotate == "tilted") return (-plot_margin_top * 0.68) - 2;
-			else if (state.x_axis_rotate == "horizontal") return -plot_margin_top;
-			else return "0.25em";
+			if (state.x_axis_rotate == "0") return -plot_margin_top;
+			else if (state.x_axis_rotate == "90") return "0.25em";
+			else return (-plot_margin_top * 0.68) - 2;
 		})
 		.attr("y", 	0)
-		.attr("transform", function() {
-			if (state.x_axis_rotate == "tilted") return "rotate(-45)";
-			else if (state.x_axis_rotate == "vertical") return "rotate(-90)";
-			else return "rotate(0)";
-		})
+		.attr("transform", "rotate(" + rotate + ")")
 		.style("font-size", state.x_axis_label_size + "px")
 		.style("fill", state.x_axis_label_color);
 }
