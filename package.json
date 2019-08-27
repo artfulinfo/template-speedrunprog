@@ -40,7 +40,7 @@
   "devDependencies": {
     "@flourish/cypress": "^1.0.0",
     "@flourish/eslint-plugin-flourish": "^0.7.2",
-    "cypress": "^3.2.0",
+    "cypress": "^3.4.1",
     "eslint": "^5.5.0",
     "pre-commit": "^1.2.2"
   },
