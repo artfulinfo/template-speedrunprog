@@ -17,6 +17,7 @@ var state = {
 	end_circle_r: 20,
 	end_circle_stroke: 4,
 	end_circle_stroke_bg: true,
+	circle_space_between: 30,
 	horse_images: true,
 	hide_labels: false,
 	label_font_size: 12,

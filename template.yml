@@ -297,6 +297,14 @@ settings:
     type: number
     min: 0
     width: quarter
+  - property: circle_space_between
+    name: Space between
+    description: Minimum space between the circles. The space is ignored when the chart is set to fill available space
+    type: number
+    min: 0
+    width: quarter
+    hide_if:
+      height_mode: fixed
   - property: end_circle_stroke_bg
     name: Stroke color
     type: boolean
