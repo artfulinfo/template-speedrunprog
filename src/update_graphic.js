@@ -245,11 +245,11 @@ function updateLabels(duration) {
 		})
 		.attr("opacity", horseOpacity)
 		.attr("stroke-width", end_circle_stroke)
-		.attr("stroke", function(d) {
-			return state.end_circle_stroke_bg && state.layout.background_color_enabled ? state.layout.background_color : color.find(d.name);
+		.attr("stroke", function() {
+			return state.end_circle_stroke_bg && state.layout.background_color_enabled ? state.layout.background_color : "#ffffff";
 		});
 	labels_update.select(".bg.circle").attr("r", end_circle_r).attr("fill", state.layout.background_color_enabled ? state.layout.background_color : "#ffffff");
-	labels_update.select(".name-bg").attr("stroke", state.layout.background_color_enabled ? state.layout.background_color : "transparent");
+	labels_update.select(".name-bg").attr("stroke", state.layout.background_color_enabled ? state.layout.background_color : "#ffffff");
 
 	if (state.horse_images) {
 		var pic_w = end_circle_r * 2 - end_circle_stroke;
