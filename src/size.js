@@ -47,7 +47,10 @@ function updateSizesAndScales(current_position, max_rank, duration) {
 	var gap_between = max_horse_height * 0.1;
 	var plot_height = (num_of_horses * max_horse_height) + (num_of_horses - 1) * gap_between;
 
-	if (state.height_mode == "flexible" || (state.height_mode == "auto" && plot_height > layout.getDefaultPrimaryHeight())) {
+	if (Flourish.fixed_height) {
+		svg_height = layout.getPrimaryHeight();
+	}
+	else if (state.height_mode == "flexible" || (state.height_mode == "auto" && plot_height > layout.getDefaultPrimaryHeight())) {
 		svg_height = plot_height + (margin_top + margin_bottom - max_horse_height);
 		layout.setHeight(svg_height);
 	}
