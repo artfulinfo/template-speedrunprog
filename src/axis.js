@@ -3,34 +3,42 @@ import { axisLeft, axisTop } from "d3-axis";
 import initFormatter from "@flourish/number-formatter";
 import { localization } from "./process_data";
 
-import { w, max_horse_height } from "./size";
+import { max_horse_height } from "./size";
 import state from "./state";
 import data from "./data";
 
 var getYAxisFormatter = initFormatter(state.y_axis_format);
 
 function updateXAxis(x) {
-	var xAxis = axisTop(x).tickFormat(function(d) {
-		return data.horserace.column_names.stages[d] || "";
-	});
+	var visible_ticks = data.horserace.column_names.stages
+		.reduce(function(arr, d, i) {
+			if (d) arr.push(i);
+			return arr;
+		}, []);
 
+	var xAxis = axisTop(x)
+		.tickValues(visible_ticks)
+		.tickFormat(function(d) {
+			return data.horserace.column_names.stages[d];
+		});
+
+	var plot_margin_top = max_horse_height / 2;
 	var rotate = -state.x_axis_rotate;
-	var min_space = state.x_axis_label_size * 4;
+	var min_space = state.x_axis_label_size * 1.5;
 	if (state.x_axis_rotate == "90") min_space = state.x_axis_label_size;
 	else if (state.x_axis_rotate == "0") min_space = state.x_axis_label_size * 6;
-
-	var max_ticks = Math.floor(w / min_space);
-	var plot_margin_top = max_horse_height / 2;
-
-	select(".x.axis").call(xAxis);
-
-	if (selectAll(".x.axis .tick").size() > max_ticks) {
-		xAxis.ticks(max_ticks);
-	}
+	var previous_tick_x;
 
 	select(".x.axis").call(xAxis)
 		.selectAll(".tick text")
 		.style("text-anchor", rotate == "0" ? "middle" : "start")
+		.style("opacity", function() {
+			var tick_x = this.getBoundingClientRect().x;
+			var overlapping = previous_tick_x && tick_x < previous_tick_x;
+			var tick_opacity = overlapping ? 0 : 1;
+			previous_tick_x = overlapping ? previous_tick_x : this.getBoundingClientRect().x + min_space;
+			return tick_opacity;
+		})
 		.attr("dx", function() {
 			if (state.x_axis_rotate == "0") return 0;
 			else if (state.x_axis_rotate == "90") return plot_margin_top;
