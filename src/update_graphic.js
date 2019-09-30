@@ -154,11 +154,13 @@ function updateChecks() {
 		selected_check = "check-" + i;
 		select(this).select("line").attr("opacity", "1");
 		select(this).select("circle").attr("opacity", "1");
+		if (state.x_axis_show_hidden) select(".x.axis").select("text[data-tick-index='" + i + "']").raise().transition().style("opacity", 0.75);
 	})
-	.on("mouseleave", function() {
+	.on("mouseleave", function(d, i) {
 		selected_check = null;
 		select(this).select("line").attr("opacity", "0");
 		select(this).select("circle").attr("opacity", "0");
+		if (state.x_axis_show_hidden) select(".x.axis").select("text[data-tick-index='" + i + "']").transition().style("opacity", null);
 	})
 	.on("click", function(d, i) {
 		state.target_position = i + 1;

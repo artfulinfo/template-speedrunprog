@@ -446,6 +446,9 @@ settings:
         - '60'
       - - 90°
         - '90'
+  - property: x_axis_show_hidden
+    name: Show hidden labels on hover
+    type: boolean
 
   - Animation
   - property: stage_duration

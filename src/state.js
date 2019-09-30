@@ -58,7 +58,6 @@ var state = {
 	mouseover_horse: null,
 
 	// y axis
-
 	y_axis_min: null,
 	y_axis_max: null,
 	y_axis_min_rank: null,
@@ -91,7 +90,8 @@ var state = {
 	// x axis
 	x_axis_label_color: "#808080",
 	x_axis_label_size: 11,
-	x_axis_rotate: "45"
+	x_axis_rotate: "45",
+	x_axis_show_hidden: false
 };
 
 export default state;

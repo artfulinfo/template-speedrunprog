@@ -29,16 +29,13 @@ function updateXAxis(x) {
 	else if (state.x_axis_rotate == "0") min_space = state.x_axis_label_size * 6;
 	var previous_tick_x;
 
-	select(".x.axis").call(xAxis)
-		.selectAll(".tick text")
+	var x_ticks = select(".x.axis").call(xAxis).selectAll(".tick");
+
+	x_ticks.select("text")
 		.style("text-anchor", rotate == "0" ? "middle" : "start")
-		.style("opacity", function() {
-			var tick_x = this.getBoundingClientRect().x;
-			var overlapping = previous_tick_x && tick_x < previous_tick_x;
-			var tick_opacity = overlapping ? 0 : 1;
-			previous_tick_x = overlapping ? previous_tick_x : this.getBoundingClientRect().x + min_space;
-			return tick_opacity;
-		})
+		.style("font-size", state.x_axis_label_size + "px")
+		.style("fill", state.x_axis_label_color)
+		.attr("data-tick-index", function(d) { return d; })
 		.attr("dx", function() {
 			if (state.x_axis_rotate == "0") return 0;
 			else if (state.x_axis_rotate == "90") return plot_margin_top;
@@ -51,8 +48,13 @@ function updateXAxis(x) {
 		})
 		.attr("y", 	0)
 		.attr("transform", "rotate(" + rotate + ")")
-		.style("font-size", state.x_axis_label_size + "px")
-		.style("fill", state.x_axis_label_color);
+		.attr("opacity", function() {
+			var tick_x = this.getBoundingClientRect().x;
+			var overlapping = previous_tick_x && tick_x < previous_tick_x;
+			var tick_opacity = overlapping ? 0 : 1;
+			previous_tick_x = overlapping ? previous_tick_x : this.getBoundingClientRect().x + min_space;
+			return tick_opacity;
+		});
 }
 
 function updateYAxis(y, w, duration) {
