@@ -73,6 +73,7 @@ function updateYAxis(y, w, duration) {
 	select(".y.axis").transition().duration(duration).call(yAxis);
 
 	selectAll(".y.axis text")
+		.attr("dx", -state.start_circle_r)
 		.style("font-size", state.y_axis_label_size + "px")
 		.style("fill", state.y_axis_label_colors);
 
