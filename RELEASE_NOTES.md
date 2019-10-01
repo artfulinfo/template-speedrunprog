@@ -1,3 +1,11 @@
+# 7.1.0
+* Make x axis ticks logic more flexible
+* Show hidden x axis ticks on hover
+* Fix bug where chart overlaps on fixed height
+* Add setting for space between horses
+* Set label stroke if there is no background color
+* Tweak y label positions
+
 # 7.0.0
 * Update @flourish/layout to v3 (breaking)
 * Tweak axis label rotation setting

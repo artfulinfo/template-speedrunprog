@@ -154,11 +154,13 @@ function updateChecks() {
 		selected_check = "check-" + i;
 		select(this).select("line").attr("opacity", "1");
 		select(this).select("circle").attr("opacity", "1");
+		if (state.x_axis_show_hidden) select(".x.axis").select("text[data-tick-index='" + i + "']").raise().transition().style("opacity", 0.75);
 	})
-	.on("mouseleave", function() {
+	.on("mouseleave", function(d, i) {
 		selected_check = null;
 		select(this).select("line").attr("opacity", "0");
 		select(this).select("circle").attr("opacity", "0");
+		if (state.x_axis_show_hidden) select(".x.axis").select("text[data-tick-index='" + i + "']").transition().style("opacity", null);
 	})
 	.on("click", function(d, i) {
 		state.target_position = i + 1;
@@ -243,11 +245,11 @@ function updateLabels(duration) {
 		})
 		.attr("opacity", horseOpacity)
 		.attr("stroke-width", end_circle_stroke)
-		.attr("stroke", function(d) {
-			return state.end_circle_stroke_bg && state.layout.background_color_enabled ? state.layout.background_color : color.find(d.name);
+		.attr("stroke", function() {
+			return state.end_circle_stroke_bg && state.layout.background_color_enabled ? state.layout.background_color : "#ffffff";
 		});
 	labels_update.select(".bg.circle").attr("r", end_circle_r).attr("fill", state.layout.background_color_enabled ? state.layout.background_color : "#ffffff");
-	labels_update.select(".name-bg").attr("stroke", state.layout.background_color_enabled ? state.layout.background_color : "transparent");
+	labels_update.select(".name-bg").attr("stroke", state.layout.background_color_enabled ? state.layout.background_color : "#ffffff");
 
 	if (state.horse_images) {
 		var pic_w = end_circle_r * 2 - end_circle_stroke;
