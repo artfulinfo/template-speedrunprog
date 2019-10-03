@@ -6,3 +6,5 @@ template.js
 template.js.map
 static/style.css
 static/style.css.map
+static/style.unminified.css
+static/style.unminified.css.map
