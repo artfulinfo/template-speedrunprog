@@ -1,3 +1,6 @@
+# 7.1.1
+* Security updates
+
 # 7.1.0
 * Make x axis ticks logic more flexible
 * Show hidden x axis ticks on hover
