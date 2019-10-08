@@ -3,7 +3,7 @@ name: Line chart race
 author: Flourish teams
 description: An animated line or “bump” chart to show changing rank over time
 sdk_version: 3
-categories: [ chart, ranking, change over time ]
+categories: [ line-chart-race, chart, race, change-over-time, ranks, images ]
 build:
   src:
     script: npm run build
