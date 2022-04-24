@@ -41,10 +41,10 @@ settings:
     style: buttons
     width: full
     choices:
-      - - Ranks
-        - ranks
       - - Scores
         - scores
+      - - Ranks
+        - ranks
   - property: higher_scores_win
     name: Data type
     description: Useful for data where lower scores beat higher scores – e.g. race times
@@ -473,8 +473,12 @@ settings:
     step: 100
 
   - Number formatting
-  - property: localization
-    import: "@flourish/number-localization"
+  - property: datetime_input_format  
+    name: Formatting
+    type: string 
+    choices:
+      - - '%H:%M:%S'
+        - '%H:%M:%S'
 
   - Layout
   - property: layout
