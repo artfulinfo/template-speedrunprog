@@ -30,7 +30,7 @@ var state = {
 	line_width: 5,
 	curve: "curveLinear",
 
-	shade: true,
+	shade: false,
 	shade_opacity: 0.1,
 	shade_width: 20,
 
@@ -47,7 +47,7 @@ var state = {
 	label_scores: "Scores",
 	label_replay: "Replay",
 
-	value_type: "ranks",
+	value_type: "scores",
 	higher_scores_win: true,
 	ties_mode: "competition",
 	show_buttons: true,

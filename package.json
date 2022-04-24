@@ -35,16 +35,8 @@
     "less": "^3.8.1",
     "rollup": "^0.65.2",
     "rollup-plugin-node-resolve": "^3.4.0",
-    "rollup-plugin-uglify": "^5.0.2"
-  },
-  "devDependencies": {
-    "@flourish/cypress": "^1.0.0",
-    "@flourish/eslint-plugin-flourish": "^0.7.2",
-    "cypress": "^3.4.1",
-    "eslint": "^5.5.0",
-    "pre-commit": "^1.2.2"
-  },
-  "precommit": [
-    "lint"
-  ]
+    "rollup-plugin-uglify": "^5.0.2",
+    "d3-time": "^3.0.0",
+    "d3-time-format": "^4.1.0"
+  }
 }
