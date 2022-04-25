@@ -2,12 +2,12 @@ import "d3-transition";
 import { select, selectAll, event } from "d3-selection";
 import { ascending } from "d3-array";
 import * as shape from "d3-shape";
+import * as timeformat from "d3-time-format";
 import initFormatter from "@flourish/number-formatter";
 
 import state from "./state";
 import data from "./data";
 import update from "./update";
-
 import { getProcessedData, localization } from "./process_data";
 import { plot, g_lines, g_labels, g_start_circles, g_checks, layout } from "./create_dom";
 import { updateSizesAndScales, w, h, x, y, start_circle_r, end_circle_r, end_circle_stroke, shade_width, line_width } from "./size";
@@ -28,13 +28,15 @@ var line = shape.line()
 var getLabelFormatter = initFormatter(state.label_format);
 var localeFunction;
 var labelFormat;
+var timeConv = timeformat.utcParse("%s");
+var timePresent = timeformat.utcFormat("%H:%M:%S");
 
 var labels_update, lines_update;
 
-function updateNumberFormatter() {
-	localeFunction = localization.getFormatterFunction();
-	labelFormat = getLabelFormatter(localeFunction);
-}
+//function updateNumberFormatter() {
+//	localeFunction = localization.getFormatterFunction();
+//	labelFormat = getLabelFormatter(localeFunction);
+//}
 
 function updateLines(duration) {
 	var lines = g_lines.selectAll(".line-group").data(horses, function(d) { return d.name; });
@@ -102,8 +104,9 @@ function displayValue(d, direction) {
 	var line_item = d.line[Math.floor(current_position)];
 	if (direction == "ahead") line_item = d.line[Math.floor(current_position + 1)];
 	else if (direction == "behind") line_item = d.line[Math.floor(current_position)];
-	var val = line_item ? line_item.value || d.line[lastValidStage(d)].value : d.line[lastValidStage(d)].value;
-	return val == "" ? "" : (state.value_type === "ranks" ? val : labelFormat(val));
+	var val = line_item ? line_item.value || d.line[lastValidStage(d)].value : d.line[lastValidStage(d)].value
+	return val == "" ? "" : (state.value_type === "ranks" ? val : timePresent(timeConv(val)));
+	
 }
 
 function lastValidStage(d) {
@@ -423,7 +426,7 @@ function updateLineStyle() {
 function updateGraphic(duration) {
 	is_mobile = window.innerWidth <= 420;
 
-	updateNumberFormatter();
+	//updateNumberFormatter();
 	updateUI();
 	updateFilterControls();
 	layout.update();

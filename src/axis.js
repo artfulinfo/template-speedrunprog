@@ -6,8 +6,12 @@ import { localization } from "./process_data";
 import { max_horse_height } from "./size";
 import state from "./state";
 import data from "./data";
+import * as timeformat from "d3-time-format";
+
 
 var getYAxisFormatter = initFormatter(state.y_axis_format);
+var timeConv = timeformat.utcParse("%s");
+var timePresent = timeformat.utcFormat("%H:%M:%S");
 
 function updateXAxis(x) {
 	var visible_ticks = data.horserace.column_names.stages
@@ -65,9 +69,9 @@ function updateYAxis(y, w, duration) {
 		.tickSize(-w)
 		.tickFormat(function(d) {
 			if (state.value_type == "ranks") return d % 1 == 0 ? d : "";
-			return yAxisFormat(d);
+			return timePresent(timeConv(d));
 		})
-		.tickPadding(5);
+		.tickPadding(0);
 
 	if (state.value_type == "ranks") yAxis.ticks(Math.min(data.horserace.length, state.y_axis_max_rank || Infinity));
 	select(".y.axis").transition().duration(duration).call(yAxis);

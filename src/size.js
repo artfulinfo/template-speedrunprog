@@ -41,7 +41,7 @@ function updateSizesAndScales(current_position, max_rank, duration) {
 
 	var margin_bottom = max_horse_height/2 + state.margin_bottom;
 	var margin_top = max_horse_height/2 + label_sizes.x.height + state.margin_top;
-	var margin_left = Math.max(max_horse_height/2, 5) + state.margin_left + (state.value_type == "ranks" ? 0 : (state.y_axis_format.suffix.length + state.y_axis_format.prefix.length) * (state.y_axis_label_size * 0.5));
+	var margin_left = Math.max(max_horse_height/2, 35) + state.margin_left + (state.value_type == "ranks" ? 0 : (state.y_axis_format.suffix.length + state.y_axis_format.prefix.length) * (state.y_axis_label_size * 0.5));
 
 	var num_of_horses = state.y_axis_max_rank != null && state.y_axis_max_rank != "" ? state.y_axis_max_rank : data.horserace.length;
 	var gap_between = !is_mobile ? state.circle_space_between : state.circle_space_between / 2;
@@ -50,7 +50,7 @@ function updateSizesAndScales(current_position, max_rank, duration) {
 	if (Flourish.fixed_height) {
 		svg_height = layout.getPrimaryHeight();
 	}
-	else if (state.height_mode == "flexible" || (state.height_mode == "auto" && plot_height > layout.getDefaultPrimaryHeight())) {
+	else if (state.height_mode == "flexible" || (state.height_mode == "Fill space" && plot_height > layout.getDefaultPrimaryHeight())) {
 		svg_height = plot_height + (margin_top + margin_bottom - max_horse_height);
 		layout.setHeight(svg_height);
 	}
