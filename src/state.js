@@ -40,7 +40,7 @@ var state = {
 	missing_dash_space: 4,
 	missing_width: 1.5,
 
-	stage_duration: 1500,
+	stage_duration: 2000,
 	update_duration: 500,
 
 	label_ranks: "Ranks",
