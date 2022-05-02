@@ -1,6 +1,6 @@
-id: horserace
-name: Line chart race
-author: Flourish teams
+id: SRchart
+name: Speedrun Line Chart Race
+author: Artful Info
 description: An animated line or “bump” chart to show changing rank over time
 sdk_version: 3
 categories: [ chart, ranking, change over time ]
@@ -508,8 +508,8 @@ data:
     dataset: horserace
     key: stages
     type: columns
-    columns: 'Data::B-CS'
-    datatype: string
+    columns: 'Data::C-CS'
+    datatype: number
   - name: Filter
     description: Hide/show entrants based on the values in this column.
     dataset: horserace

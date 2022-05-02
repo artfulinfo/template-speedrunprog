@@ -74,10 +74,10 @@ function updateSizesAndScales(current_position, max_rank, duration) {
 	var x_offset = state.zoom_enabled ? 0 : Math.max(state.start_circle_r, state.line_width/2, state.shade_width/2) + state.margin_left;
 	select("#clip rect")
 		.transition().duration(duration)
-		.attr("transform", "translate(0,-" + margin_top + ")")
+		.attr("transform", "translate(0," + 0 + ")")
 		.attr("height", h + margin_top + margin_bottom)
 		.attr("width", x(current_position) + x_offset)
-		.attr("x", -x_offset);
+		.attr("x", 0);
 }
 
 function updateXDomain(current_position) {

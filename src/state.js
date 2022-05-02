@@ -3,7 +3,7 @@ var state = {
 	margin_top: 5,
 	margin_right: 5,
 	margin_right_mobile: 5,
-	margin_bottom: 0,
+	margin_bottom: 5,
 	margin_left: 5,
 
 	zoom_enabled: true,
